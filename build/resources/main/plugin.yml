@@ -1,6 +1,10 @@
 name: TotemOfHerobrine
 version: '1.0-SNAPSHOT'
+author: 'wlekuu'
 
 main: org.example.wleku.totemOfHerobrine.TotemOfHerobrine
 api-version: '26.3'
 load: POSTWORLD
+
+commands:
+  herobrine:

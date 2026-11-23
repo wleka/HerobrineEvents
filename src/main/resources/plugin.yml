@@ -7,4 +7,4 @@ api-version: '26.3'
 load: POSTWORLD
 
 commands:
-  herobine:
+  herobrine:
