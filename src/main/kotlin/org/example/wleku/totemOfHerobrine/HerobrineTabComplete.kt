@@ -12,7 +12,10 @@ class HerobrineTabComplete: TabCompleter {
         args: Array<out String>
     ): List<String> {
         if (args.size == 1) {
-            return listOf("thunder", "darkness").filter { it.startsWith(args[0], ignoreCase = false) }
+            return listOf(
+                "thunder",
+                "darkness"
+            ).filter { it.startsWith(args[0], ignoreCase = false) }
         }
         return emptyList()
     }
