@@ -1,6 +1,10 @@
 name: TotemOfHerobrine
 version: '${version}'
+author: 'wlekuu'
 
 main: org.example.wleku.totemOfHerobrine.TotemOfHerobrine
 api-version: '26.3'
 load: POSTWORLD
+
+commands:
+  herobine:
