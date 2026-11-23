@@ -14,7 +14,9 @@ class HerobrineTabComplete: TabCompleter {
         if (args.size == 1) {
             return listOf(
                 "thunder",
-                "darkness"
+                "darkness",
+                "optotem",
+                "poortotem"
             ).filter { it.startsWith(args[0], ignoreCase = false) }
         }
         return emptyList()
