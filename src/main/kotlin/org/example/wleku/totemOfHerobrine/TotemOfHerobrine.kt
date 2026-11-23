@@ -16,7 +16,10 @@ class TotemOfHerobrine : JavaPlugin() {
         instance = this
         Bukkit.getPluginManager().registerEvents(onAsk(this), this)
 
-        getCommand("herobrine")?.setExecutor(HerobrineCommand())
+        getCommand("herobrine")?.apply {
+            setExecutor(HerobrineCommand())
+            tabCompleter = HerobrineTabComplete()
+        }
 
     }
 
