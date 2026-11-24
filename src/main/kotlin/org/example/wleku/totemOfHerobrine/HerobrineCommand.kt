@@ -1,13 +1,17 @@
 package org.example.wleku.totemOfHerobrine
 
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
+import org.bukkit.potion.PotionEffectType
 
 class HerobrineCommand: CommandExecutor {
     override fun onCommand(
@@ -70,14 +74,31 @@ class HerobrineCommand: CommandExecutor {
         if (args.contains("darkness")) {
             if (sender.name == "wlekuu" || sender.hasPermission("herobrine.darkness")) {
                 try {
-                    Bukkit.getOnlinePlayers().forEach { player ->
-                        val x = player.location.x
-                        val y = player.location.y + 150
-                        val z = player.location.z
+                    val target = Bukkit.getPlayer(args[1])
 
-                        player.world.strikeLightning(Location(player.world, x, y, z))
+                    if (target != null) {
+                        target.sendMessage(Component.text("Herobrine's watching you."))
+                        target.playSound(target.location, Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 1f)
+
+
+                        Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+
+                            target.showTitle(Title.title(
+                                Component.text("I SEE YOU.", NamedTextColor.RED),
+                                Component.text("")
+                            ))
+
+                            target.addPotionEffect(PotionEffect(PotionEffectType.DARKNESS, 167, 3, true, false))
+                            target.addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 167, 5, true, false))
+                            target.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 167, 1, true, false))
+
+                            target.playSound(target.location, Sound.AMBIENT_CAVE, 1f, 1f)
+                        }, 67L)
+
+                        sender.sendMessage(plugin.config.getString("successUse").toString() + " : ${target.getName()}")
+                    } else {
+                        sender.sendMessage("Player's not online.")
                     }
-                    sender.sendMessage(plugin.config.getString("successUse").toString())
                 } catch (e: Exception) {
                     sender.sendMessage(plugin.config.getString("unsuccess" + e).toString())
                 }
